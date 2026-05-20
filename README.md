@@ -26,13 +26,9 @@ To predict the signal value at a new time $X_*$ (e.g., Time = 1.5):
     *Logic:* The Sentry calculates a weighted average where training points
      closer to $X_*$ exert a stronger pull on the prediction.
 
-4. **Predictive Variance ($\sigma^2_*$):**
+4. **Predictive Variance ($\sigma^2_{*}$):**
 
-$$\sigma^2_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$$
-
-   *Logic:* Calculates the remaining uncertainty. Near an anchor, the
-   subtracted term increases, causing the variance (and the gray corridor)
-   to shrink.
+$$\sigma^2_{*} = K(X_{*}, X_{*}) - K_{*}^{\top} [K + \sigma_n^2 I]^{-1} K_{*}$$
 ### Implementation Details
 * **Matrix Dimensionality:** We use `X.reshape(-1, 1)` to transform flat lists into 2D column matrices. This is mandatory for Matrix multiplication and Dot Product operations in the Linear Algebra backend.
 * **Resolution (60 vs 200):** We provide 60 "Anchor" points for training, but request **200 predictions** ($X_*$) to generate a high-resolution, continuous manifold for visualization.
