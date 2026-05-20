@@ -32,10 +32,6 @@ $$\mu_* = K_*^\top [K + \sigma_n^2 I]^{-1} y$$
 $$\Sigma_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$$
 *Logic:* Calculates the remaining uncertainty. Near an anchor, the subtracted term increases, causing the variance (and the gray corridor) to shrink.
 
-### 💻 Implementation Details
-* **`reshape(-1, 1)`**: Mandated for 2D matrix compatibility in Linear Algebra operations.
-* **3-Sigma Manifold**: The safety corridor covers **99.7%** of the probability mass ($\mu_* \pm 3\sigma_*$). Any observation breaching this fence is a statistical anomaly.
-
 ### Implementation Details
 * **Matrix Dimensionality:** We use `X.reshape(-1, 1)` to transform flat lists into 2D column matrices. This is mandatory for Matrix multiplication and Dot Product operations in the Linear Algebra backend.
 * **Resolution (60 vs 200):** We provide 60 "Anchor" points for training, but request **200 predictions** ($X_*$) to generate a high-resolution, continuous manifold for visualization.
@@ -54,4 +50,4 @@ A standard Gaussian (Bell Curve) defines a probability distribution over a **sin
 ### 3. The Kernel as a Structural Design Choice
 The Kernel is our mathematical assumption about the *style* and *behavior* of the data stream. By selecting a kernel, we dictate the geometric properties (smoothness, periodicity, ruggedness) that the **KernelSentry** will consider "normal." 
 
-> 💡 **Theoretical Reference:** The baseline visual and conceptual framework for this architecture was inspired by the interactive visualization paradigm found in [*A Visual Exploration of Gaussian Processes* (Distill.pub)](https://distill.pub/2019/visual-exploration-gaussian-processes/). THIS IS DAY 1
+>  **Theoretical Reference:** The baseline visual and conceptual framework for this architecture was inspired by the interactive visualization paradigm found in [*A Visual Exploration of Gaussian Processes* (Distill.pub)](https://distill.pub/2019/visual-exploration-gaussian-processes/). THIS IS DAY 1
