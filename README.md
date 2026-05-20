@@ -23,12 +23,7 @@ To predict the signal value at a new time $X_*$ (e.g., Time = 1.5):
 2. **Weight Vector ($w$):** Calculated during training as $w = [K + \sigma_n^2 I]^{-1} y$.
 3. **Predictive Mean:** The final height $\mu_*$ is the dot product $K_*^\top \cdot w$.
    - *Logic:* The Sentry calculates a weighted average where training points closer to $X_*$ exert a stronger pull on the prediction.
-  
-**Predictive Mean ($\mu_*$):**
-$$\mu_* = K_*^\top [K + \sigma_n^2 I]^{-1} y$$
-
-**Predictive Variance ($\Sigma_*$):**
-$$\Sigma_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$$
+4. **Predictive Variance ($\Sigma_*$):** $\Sigma_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$
 *Logic:* Calculates the remaining uncertainty. Near an anchor, the subtracted term increases, causing the variance (and the gray corridor) to shrink.
 
 ### Implementation Details
