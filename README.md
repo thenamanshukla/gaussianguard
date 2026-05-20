@@ -17,16 +17,15 @@ $$k(x, x') = \sigma_f^2 \exp\left( -\frac{\|x - x'\|^2}{2l^2} \right)$$
 * **$\sigma_f^2$ (Signal Variance):** Optimized to **~1.66**, defining the vertical probability boundary.
 * **$l$ (Length-scale):** Optimized to **~2.36**, defining the horizontal "memory" of the signal.
 
-#### 2. The Predictive Trace: Calculating $\mu_{*}$
-To predict the signal value at a new time $X_{*}$ (e.g., Time = 1.5):
-1. **Similarity Vector ($K_{*}$):** Measures the distance between $X_{*}$ and all 60 training dots.
+#### 2. The Predictive Trace: Calculating $\mu_{\ast}$
+To predict the signal value at a new time $X_{\ast}$ (e.g., Time = 1.5):
+1. **Similarity Vector ($K_{\ast}$):** Measures the distance between $X_{\ast}$ and all 60 training dots.
 2. **Weight Vector ($w$):** Calculated during training as $w = [K + \sigma_n^2 I]^{-1} y$.
-3. **Predictive Mean:** The final height $\mu_{*}$ is the dot product $K_{*}^{\top} \cdot w$.
-   *Logic:* The Sentry calculates a weighted average where training points closer to $X_{*}$ exert a stronger pull on the prediction.
-4. **Predictive Variance ($\sigma^2_{*}$):**
-$$\sigma^2_{*} = K(X_{*}, X_{*}) - K_{*}^{\top} [K + \sigma_n^2 I]^{-1} K_{*}$$
-*Logic:* Calculates the remaining uncertainty. Near an anchor, the subtracted term increases, causing the variance (and the gray corridor) to shrink.
-
+3. **Predictive Mean:** The final height $\mu_{\ast}$ is the dot product $K_{\ast}^{\top} \cdot w$.
+   *Logic:* The Sentry calculates a weighted average where training points closer to $X_{\ast}$ exert a stronger pull on the prediction.
+4. **Predictive Variance ($\sigma^2_{\ast}$):**
+$$\sigma^2_{\ast} = K(X_{\ast}, X_{\ast}) - K_{\ast}^{\top} [K + \sigma_n^2 I]^{-1} K_{\ast}$$
+   *Logic:* Calculates the remaining uncertainty. Near an anchor, the subtracted term increases, causing the variance (and the gray corridor) to shrink.
 ### Implementation Details
 * **Matrix Dimensionality:** We use `X.reshape(-1, 1)` to transform flat lists into 2D column matrices. This is mandatory for matrix multiplication and dot product operations in the linear algebra backend.
 * **Resolution (60 vs 200):** We provide 60 "Anchor" points for training, but request **200 predictions** ($X_{*}$) to generate a high-resolution, continuous manifold for visualization.
