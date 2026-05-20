@@ -26,7 +26,6 @@ To predict the signal value at a new time $X_*$ (e.g., Time = 1.5):
   
 **Predictive Mean ($\mu_*$):**
 $$\mu_* = K_*^\top [K + \sigma_n^2 I]^{-1} y$$
-*Logic:* Calculates a weighted average of the 60 anchors. Points closer to $X_*$ exert a stronger "pull" on the blue line.
 
 **Predictive Variance ($\Sigma_*$):**
 $$\Sigma_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$$
