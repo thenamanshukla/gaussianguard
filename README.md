@@ -29,3 +29,17 @@ To predict the signal value at a new time $X_*$ (e.g., Time = 1.5):
 * **Resolution (60 vs 200):** We provide 60 "Anchor" points for training, but request **200 predictions** ($X_*$) to generate a high-resolution, continuous manifold for visualization.
 * **3-Sigma Manifold:** The safety corridor covers **99.7%** of the probability mass ($\mu_* \pm 3\sigma_*$). Any observation breaching this fence is classified as a statistical anomaly.
 
+ ## Day 1: Core Concept Intuition
+
+### 1. From Bell Curves to Random Functions
+A standard Gaussian (Bell Curve) defines a probability distribution over a **single variable** (scalar value) using a Mean ($\mu$) and Variance ($\sigma^2$). A **Gaussian Process (GP)** scales this concept to infinity: it defines a probability distribution over **entire continuous functions**. Instead of asking *"Which number is most likely?"*, a GP asks *"Which curve shape is most likely?"*
+
+### 2. The Mechanics of Inference (The 3-Step Filter)
+1. **The Infinite Prior:** We initialize a blank graph representing a vector space of infinite possible functions (flat lines, steep drops, random wiggles).
+2. **The Kernel Scoring Engine:** We apply a **Kernel Function** to score these infinite curves. Smooth, structurally sound curves receive a high probability score; chaotic, discontinuous curves receive a score approaching zero. This is our **Prior Distribution**.
+3. **The Data Constraint (Conditioning):** When observed real-world data points arrive, the GP acts as a filter. It instantly discards any function that does not pass through those observed coordinates. The remaining collection of surviving functions forms our **Posterior Distribution**.
+
+### 3. The Kernel as a Structural Design Choice
+The Kernel is our mathematical assumption about the *style* and *behavior* of the data stream. By selecting a kernel, we dictate the geometric properties (smoothness, periodicity, ruggedness) that the **KernelSentry** will consider "normal." 
+
+> 💡 **Theoretical Reference:** The baseline visual and conceptual framework for this architecture was inspired by the interactive visualization paradigm found in [*A Visual Exploration of Gaussian Processes* (Distill.pub)](https://distill.pub/2019/visual-exploration-gaussian-processes/). THIS IS DAY 1
