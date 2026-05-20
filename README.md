@@ -23,6 +23,18 @@ To predict the signal value at a new time $X_*$ (e.g., Time = 1.5):
 2. **Weight Vector ($w$):** Calculated during training as $w = [K + \sigma_n^2 I]^{-1} y$.
 3. **Predictive Mean:** The final height $\mu_*$ is the dot product $K_*^\top \cdot w$.
    - *Logic:* The Sentry calculates a weighted average where training points closer to $X_*$ exert a stronger pull on the prediction.
+  
+**Predictive Mean ($\mu_*$):**
+$$\mu_* = K_*^\top [K + \sigma_n^2 I]^{-1} y$$
+*Logic:* Calculates a weighted average of the 60 anchors. Points closer to $X_*$ exert a stronger "pull" on the blue line.
+
+**Predictive Variance ($\Sigma_*$):**
+$$\Sigma_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$$
+*Logic:* Calculates the remaining uncertainty. Near an anchor, the subtracted term increases, causing the variance (and the gray corridor) to shrink.
+
+### 💻 Implementation Details
+* **`reshape(-1, 1)`**: Mandated for 2D matrix compatibility in Linear Algebra operations.
+* **3-Sigma Manifold**: The safety corridor covers **99.7%** of the probability mass ($\mu_* \pm 3\sigma_*$). Any observation breaching this fence is a statistical anomaly.
 
 ### Implementation Details
 * **Matrix Dimensionality:** We use `X.reshape(-1, 1)` to transform flat lists into 2D column matrices. This is mandatory for Matrix multiplication and Dot Product operations in the Linear Algebra backend.
