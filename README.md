@@ -1,31 +1,3 @@
-#  Project Sentry: Gaussian Process Anomaly Detection
-
-## Day 2 Milestone: Engine Calibration & Matrix Conditioning
-On Day 2, we transitioned from raw signal generation to constructing a Bayesian "Sentry." This system learns the underlying manifold of a noisy data stream to establish a dynamic safety corridor.
-
-###  The Logic: Posterior Conditioning
-The Sentry does not utilize a hardcoded sine wave formula. Instead, it employs **Bayesian Inference**:
-1. **The Prior:** Before observing data, the Sentry assumes a state of global uncertainty (Infinite Prior).
-2. **The Constraints:** We provided **60 Discrete Observations** (Anchors) sampled from a noisy sine process.
-3. **The Posterior:** The Sentry performs "Conditioning," crushing the uncertainty at these 60 points to reconstruct the most probable latent path.
-
-###  The Mathematics
-
-#### 1. The Kernel (The Smoothness Rule)
-The **Radial Basis Function (RBF)** defines the covariance between time points:
-$$k(x, x') = \sigma_f^2 \exp\left( -\frac{\|x - x'\|^2}{2l^2} \right)$$
-* **$\sigma_f^2$ (Signal Variance):** Optimized to **~1.66**, defining the vertical probability boundary.
-* **$l$ (Length-scale):** Optimized to **~2.36**, defining the horizontal "memory" of the signal.
-
-#### 2. The Predictive Trace: Calculating $\mu_{\ast}$
-To predict the signal value at a new time $X_{\ast}$ (e.g., Time = 1.5):
-1. **Similarity Vector ($K_{\ast}$):** Measures the distance between $X_{\ast}$ and all 60 training dots.
-2. **Weight Vector ($w$):** Calculated during training as $w = [K + \sigma_n^2 I]^{-1} y$.
-3. **Predictive Mean:** The final height $\mu_{\ast}$ is the dot product $K_{\ast}^{\top} \cdot w$.
-   *Logic:* The Sentry calculates a weighted average where training points closer to $X_{\ast}$ exert a stronger pull on the prediction.
-4. **Predictive Variance ($\sigma^2_{\ast}$):**
-$$\sigma^2_{\ast} = K(X_{\ast}, X_{\ast}) - K_{\ast}^{\top} [K + \sigma_n^2 I]^{-1} K_{\ast}$$
-   *Logic:* Calculates the remaining uncertainty. Near an anchor, the subtracted term increases, causing the variance (and the gray corridor) to shrink.
 # GaussianGuard
 
 A Bayesian signal monitoring system that uses Gaussian Process Regression to construct adaptive safety corridors around time-series data. The engine learns the statistical manifold of a signal, establishes a probabilistic baseline, and flags observations that fall outside the expected variance as anomalies.
