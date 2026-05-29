@@ -39,7 +39,7 @@ gaussianguard/
 
 The conceptual foundation for this architecture. A Gaussian Process is a probabilistic method that produces a confidence region (shaded band) around a predicted function, not just a single line.
 
-![Distill Reference](distill_reference.png)
+![Distill Reference](screenshots/distill_reference.png)
 
 ---
 
@@ -47,7 +47,7 @@ The conceptual foundation for this architecture. A Gaussian Process is a probabi
 
 The GP correctly learns a smooth latent path through 60 noisy anchor points and reconstructs it at 200 prediction locations. The gray band is the 3-sigma safety corridor.
 
-![GP Verification](gp_verification.png)
+![GP Verification](screenshots/gp_verification.png)
 
 ---
 
@@ -55,7 +55,7 @@ The GP correctly learns a smooth latent path through 60 noisy anchor points and 
 
 The guard tracks the system-wide average across all 12 cores. The per-core view below shows the raw utilization that feeds into the composite kernel.
 
-![System Monitor](system_monitor.png)
+![System Monitor](screenshots/system_monitor.png)
 
 ---
 
@@ -199,7 +199,7 @@ Tested on a 12-core Linux machine under normal and elevated workloads:
 - When load climbed to 13.4% and then 19.6%, the model updated its expected mean without triggering false alarms; the workload shift was gradual enough to fall within the sliding window's learned trend.
 - Designed to flag sudden non-correlated spikes that violate the probabilistic safety corridor.
 
-![Live Guard Terminal](live_guard_terminal.png)
+![Live Guard Terminal](screenshots/live_guard_terminal.png)
 
 ---
 
