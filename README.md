@@ -80,7 +80,9 @@ $$\mu_* = K_*^\top [K + \sigma_n^2 I]^{-1} y$$
 
 **Predictive variance:**
 
-$$\sigma^2_* = K(X_*, X_*) - K_*^\top [K + \sigma_n^2 I]^{-1} K_*$$
+```math
+\sigma^2_{*} = K(X_{*}, X_{*}) - K_{*}^\top [K + \sigma_n^2 I]^{-1} K_{*}
+```
 
 The variance shrinks near training observations and expands in unobserved regions. The 3-sigma corridor covers 99.7% of the probability mass.
 
