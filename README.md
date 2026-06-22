@@ -1,4 +1,4 @@
-# GaussianGuard
+# Gaussian Guard
 
 A Bayesian signal monitoring system that uses Gaussian Process Regression to construct adaptive safety corridors around time-series data. The engine learns the statistical manifold of a signal, establishes a probabilistic baseline, and flags observations that fall outside the expected variance as anomalies.
 
